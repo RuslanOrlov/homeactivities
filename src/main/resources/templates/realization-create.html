@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Realization</title>
+</head>
+<body>
+
+<a th:href="@{/activities}">Back to the Activities list</a>
+<hr>
+<br>
+<form th:method="GET" th:action="@{/activities/{id}(id=${realization.getActivity().getId()})}"
+      th:object="${realization}">
+    <label for="id_activity">Id........................: </label>
+    <input readonly type="text" th:field="*{activity.id}" id="id_activity"
+           style="background-color: rgb(240,240,240)">
+    <label for="activity name">Activity name....: </label>
+    <input readonly type="text" th:field="*{activity.activityName}" id="activity name"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="executor name">Executor name...: </label>
+    <input readonly type="text" th:field="*{activity.executorName}" id="executor name"
+           style="background-color: rgb(240,240,240)">
+    <label for="completion date">Completion date: </label>
+    <input readonly type="date" th:field="*{activity.completionDate}" id="completion date"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <br>
+    <input type="submit" value="Back to the Activity card">
+</form>
+
+<br>
+
+<a th:href="@{/realizations}">Back to the Realizations list</a>
+<hr>
+<br>
+<form th:method="POST" th:action="@{/realizations}" th:object="${realization}">
+    <label for="description">Description...................: </label>
+    <input type="text" th:field="*{description}" id="description" placeholder="Description">
+    <div style="color:red" th:if="${#fields.hasErrors('description')}"
+         th:errors="*{description}">Error text</div>
+    <br>
+    <label for="actual executor">Actual Executor............: </label>
+    <input type="text" th:field="*{actualExecutor}" id="actual executor" placeholder="Actual Executor">
+    <div style="color:red" th:if="${#fields.hasErrors('actualExecutor')}"
+         th:errors="*{actualExecutor}">Error text</div>
+    <br>
+    <label for="actual completion date">Actual Completion date: </label>
+    <input type="date" th:field="*{actualCompletionDate}" id="actual completion date"
+           pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" placeholder="Actual Completion date">
+    <div style="color:red" th:if="${#fields.hasErrors('actualCompletionDate')}"
+         th:errors="*{actualCompletionDate}">Error text</div>
+    <input hidden type="text" th:field="*{activity}">
+    <br>
+    <br>
+    <input type="submit" value="Create Realization">
+</form>
+
+</body>
+</html>

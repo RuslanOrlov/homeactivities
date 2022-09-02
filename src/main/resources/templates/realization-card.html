@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Realization Card</title>
+</head>
+<body>
+
+<a th:href="@{/activities}">Back to the Activities list</a>
+<hr>
+<br>
+<form th:method="GET" th:action="@{/activities/{id}(id=${realization.getActivity().getId()})}"
+      th:object="${realization}">
+    <label for="id_activity">Id........................: </label>
+    <input readonly type="text" th:field="*{activity.id}" id="id_activity"
+           style="background-color: rgb(240,240,240)">
+    <label for="activity name">Activity name....: </label>
+    <input readonly type="text" th:field="*{activity.activityName}" id="activity name"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="executor name">Executor name...: </label>
+    <input readonly type="text" th:field="*{activity.executorName}" id="executor name"
+           style="background-color: rgb(240,240,240)">
+    <label for="completion date">Completion date: </label>
+    <input readonly type="date" th:field="*{activity.completionDate}" id="completion date"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <br>
+    <input type="submit" value="Back to the Activity card">
+</form>
+
+<br>
+
+<a th:href="@{/realizations}">Back to the Realizations list</a>
+<hr>
+<br>
+<form th:method="GET" th:action="@{/realizations/{id}/edit(id=${realization.getId()})}" th:object="${realization}">
+    <label for="id_realization">Id..................................: </label>
+    <input readonly type="text" th:field="*{id}" id="id_realization"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="description">Description...................: </label>
+    <input readonly type="text" th:field="*{description}" id="description"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="actual executor">Actual Executor............: </label>
+    <input readonly type="text" th:field="*{actualExecutor}" id="actual executor"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="actual completion date">Actual Completion date: </label>
+    <input readonly type="date" th:field="*{actualCompletionDate}" id="actual completion date"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="create date">Create date....................: </label>
+    <input readonly type="text" th:field="*{createDate}" id="create date"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="change date">Change date..................: </label>
+    <input readonly type="text" th:field="*{changeDate}" id="change date"
+           placeholder="Change date" style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="Id activity">Id activity......................: </label>
+    <input readonly type="text" th:field="*{activity.id}" id="Id activity"
+           style="background-color: rgb(240,240,240)"><br>
+    <br>
+    <input type="submit" value="Open Update Form">
+</form>
+
+</body>
+</html>

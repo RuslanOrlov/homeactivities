@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Realizations List</title>
+</head>
+<body>
+
+<a th:href="@{/activities}">Back to the Activities list</a>
+<hr>
+<br>
+<form th:method="GET" th:action="@{/activities/{id}(id=${activity.getId()})}" th:object="${activity}">
+    <label for="id">Id........................: </label>
+    <input readonly type="text" th:field="*{id}" id="id"
+           style="background-color: rgb(240,240,240)">
+    <label for="activity name">Activity name....: </label>
+    <input readonly type="text" th:field="*{activityName}" id="activity name"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="executor name">Executor name...: </label>
+    <input readonly type="text" th:field="*{executorName}" id="executor name"
+           style="background-color: rgb(240,240,240)">
+    <label for="completion date">Completion date: </label>
+    <input readonly type="date" th:field="*{completionDate}" id="completion date"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <br>
+    <input type="submit" value="Back to the Activity card">
+</form>
+
+<br>
+<a th:href="@{/realizations/new}">Create new Realization</a>
+
+<div th:switch="${realizationList.isEmpty()}">
+    <div th:case="true">
+        <hr>
+        <h2  style="color: red; font-size: 125%">No realizations found!</h2>
+        <hr>
+    </div>
+    <div th:case="false">
+        <hr>
+        <h2  style="color: black; font-size: 125%">Realizations List (version of 26-08-2022)</h2>
+        <hr>
+        <table border="2" bordercolor="black" cellpadding="3">
+            <thead>
+            <tr>
+                <th width="20">Id</th>
+                <th width="150">Description</th>
+                <th width="80">Actual executor</th>
+                <th width="130">Actual completion date</th>
+                <th width="130">Created</th>
+                <th width="130">Changed</th>
+                <th width="20">Id activity</th>
+                <th width="50">Edit</th>
+                <th width="50">Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="realization : ${realizationList}">
+                <td> <a th:href="@{/realizations/{id}(id=${realization.getId()})}"
+                        th:text="${realization.getId()}">Id</a>
+                </td>
+                <td th:text="${realization.getDescription()}"></td>
+                <td th:text="${realization.getActualExecutor()}"></td>
+                <td th:text="${#temporals.format(realization.getActualCompletionDate(), 'dd-MM-yyyy')}"></td>
+                <td th:text="${#temporals.format(realization.getCreateDate(), 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${#temporals.format(realization.getChangeDate(), 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${realization.getActivity().getId()}"></td>
+                <td><a th:href="@{/realizations/{id}/edit(id=${realization.getId()})}">Edit</a></td>
+                <td><a th:href="@{/realizations/{id}/remove(id=${realization.getId()})}">Remove</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

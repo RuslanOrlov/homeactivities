@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Activities List</title>
+</head>
+<body>
+
+<a th:href="@{/activities/new}">Create new Activity</a>
+<a th:href="@{/start}">Go to the Start page</a>
+
+<div th:switch="${activities.isEmpty()}">
+    <div th:case="true">
+        <hr>
+        <h2  style="color: red; font-size: 125%">No activities found!</h2>
+        <hr>
+    </div>
+    <div th:case="false">
+        <hr>
+        <h2  style="color: black; font-size: 125%">Activities List (version of 26-08-2022)</h2>
+        <hr>
+        <table border="2" bordercolor="black" cellpadding="3">
+            <thead>
+            <tr>
+                <th width="20">Id</th>
+                <th width="150">Activity name</th>
+                <th width="80">Executor name</th>
+                <th width="130">Completion date</th>
+                <th width="130">Created</th>
+                <th width="130">Changed</th>
+                <th width="50">Edit</th>
+                <th width="50">Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="activity : ${activities}">
+                <td> <a th:href="@{/activities/{id}(id=${activity.getId()})}"
+                        th:text="${activity.getId()}">Id</a>
+                </td>
+                <td th:text="${activity.getActivityName()}"></td>
+                <td th:text="${activity.getExecutorName()}"></td>
+                <td th:text="${#temporals.format(activity.getCompletionDate(), 'dd-MM-yyyy')}"></td>
+                <td th:text="${#temporals.format(activity.getCreateDate(), 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${#temporals.format(activity.getChangeDate(), 'dd-MM-yyyy HH:mm')}"></td>
+                <td><a th:href="@{/activities/{id}/edit(id=${activity.getId()})}">Edit</a></td>
+                <td><a th:href="@{/activities/{id}/remove(id=${activity.getId()})}">Remove</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

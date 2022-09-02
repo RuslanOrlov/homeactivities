@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Activity Card</title>
+</head>
+<body>
+
+<a th:href="@{/activities}">Back to the Activities list</a>
+<hr>
+<br>
+<form th:method="GET" th:action="@{/activities/{id}/edit(id=${activity.getId()})}" th:object="${activity}">
+    <label for="id">Id........................: </label>
+    <input readonly type="text" th:field="*{id}" id="id"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="activity name">Activity name....: </label>
+    <input readonly type="text" th:field="*{activityName}" id="activity name"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="executor name">Executor name...: </label>
+    <input readonly type="text" th:field="*{executorName}" id="executor name"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="completion date">Completion date: </label>
+    <input readonly type="date" th:field="*{completionDate}" id="completion date"
+           style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="create date">Create date.........: </label>
+    <input readonly type="text" th:field="*{createDate}" id="create date"
+            style="background-color: rgb(240,240,240)">
+    <br>
+    <label for="change date">Change date.......: </label>
+    <input readonly type="text" th:field="*{changeDate}" id="change date"
+           placeholder="Change date" style="background-color: rgb(240,240,240)">
+    <br>
+    <br>
+    <input type="submit" value="Open Update Form">
+</form>
+
+<br>
+<a th:href="@{/realizations}">Open Realizations List</a>
+
+<div th:switch="${activity.getRealizationList().isEmpty()}">
+    <div th:case="true">
+        <hr>
+        <h2  style="color: red; font-size: 125%">No realizations found!</h2>
+        <hr>
+    </div>
+    <div th:case="false">
+        <hr>
+        <h2  style="color: black; font-size: 125%"
+             th:text="${'Realizations List (version of 26-08-2022) has ' + activity.getRealizationList().size() + ' item(s)'}">text</h2>
+        <hr>
+    </div>
+</div>
+
+</body>
+</html>
